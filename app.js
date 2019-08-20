@@ -31,7 +31,7 @@ app.locals.moment = moment;
 app.locals.shortDateFormat = shortDateFormat;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/writers_block_db', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://admin:admin@cluster0-5rpcc.mongodb.net/writers_block_db?retryWrites=true&w=majority', { useNewUrlParser: true });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

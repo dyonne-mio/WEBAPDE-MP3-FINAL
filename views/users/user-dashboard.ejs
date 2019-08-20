@@ -1,0 +1,275 @@
+<%- include('../header') %>
+<style type="text/css">
+header.masthead {
+    color: black;
+}
+
+@media (min-width: 992px) {
+    header.masthead {
+        height: auto;
+        min-height: 775px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+.page-item {
+    cursor: pointer;
+}
+
+@media (min-width: 992px) {
+
+    #mainNav .navbar-nav>li>a,
+    #mainNav .navbar-nav>li>a:focus {
+        color: white;
+    }
+}
+
+@media (min-width: 992px){
+#mainNav .navbar-nav > li > a:hover, #mainNav .navbar-nav > li > a:focus:hover {
+    color: #FFC107;
+}
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #673AB7;
+    border-color: #673AB7;
+}
+
+.btn-success:hover {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="">
+            <a class="navbar-brand js-scroll-trigger lmn" href="/"> <img src="/img/writing.png" style="height:4%; width: 4%;" />&nbsp;Writer's Block</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href='/prompts/search'> <span class="fa fa-search"></span> Search Prompts</a>
+                </li>
+                <% if (user) { %>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle cg" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Welcome
+                        <%= user.username %> <span class="fa fa-user-tie"></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a id="logout-btn" class="dropdown-item" data-target="#change-password-modal" data-toggle="modal">Change Password</a>
+                        <a id="logout-btn" class="dropdown-item" href="/user/logout">Logout</a>
+                    </div>
+                </li>
+                <% } else { %>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#login-modal">Login</a>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </nav>
+    <header class="masthead">
+        <div class="container h-100">
+            <div class="row h-75">
+                <div class="col-lg-5" style="margin-top: 5rem!important;">
+                    <div class="card text-white bg-white">
+                        <div class="card-header text-black">
+                            Create your own prompts!
+                        </div>
+                        <div class="card-body">
+                            <input id="prompt-title" type="text" class="form-control mb-2" placeholder="Enter Title">
+                            <textarea id="prompt-text" class="form-control"></textarea>
+                            <div class="mt-2">
+                                <input id="prompt-tags" type="text" class="form-control" placeholder="Add Tags...">
+                            </div>
+                            <div class="row">
+                                <button id="submit-prompt-btn" class="btn btn-success mt-3 mx-auto">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7" style="margin-top: 5rem!important;">
+                    <div class="card bg-white mb-4">
+                        <div class="card-body">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="my-prompts-tab" data-toggle="tab" href="#my-prompts" role="tab" aria-controls="my-prompts" aria-selected="true">My Prompts</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Followed Prompts</a>
+                                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Activity</a>
+                                </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="my-prompts" role="tabpanel" aria-labelledby="my-prompts-tab">
+                                    <div class="mt-4" style="min-height: 300px;">
+                                        <div class="input-group mb-4">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <span class="fa fa-search"></span>
+                                                </span>
+                                            </div>
+                                            <input type="text" id="search-user-prompt-text" class="form-control" placeholder="Search here..." aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                        <div style="display: none;" id="user-prompts-list">
+                                            <div id="prompts-accordion">
+                                            </div>
+                                            <div class="row">
+                                                <div class="mx-auto mt-4">
+                                                    <nav aria-label="Page navigation example">
+                                                        <ul id='user-prompt-pagination' class="pagination">
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h3 id="no-prompts-message" style="display: none;">No prompts to show, create one!</h3>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div class="mt-4" style="min-height: 300px;">
+                                        <div class="input-group mb-4">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <span class="fa fa-search"></span>
+                                                </span>
+                                            </div>
+                                            <input type="text" id="search-user-followed-prompt-text" class="form-control" placeholder="Search here..." aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                        <div style="display: none;" id="user-followed-prompts-list">
+                                            <div id="followed-prompts-accordion">
+                                            </div>
+                                            <div class="row">
+                                                <div class="mx-auto mt-4">
+                                                    <nav aria-label="Page navigation example">
+                                                        <ul id='user-followed-prompt-pagination' class="pagination">
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h3 id="no-follwed-prompts-message" style="display: none;">No followed prompts! <a href="/prompts/search">search some here!</a></h3>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                    <div class="table-responsive mt-3">
+                                        <table id="activity-table" class="table table-striped">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col">Activity</th>
+                                                    <th scope="col">Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="modal fade" id="change-password-modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="">Change Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="password-form">
+                        <div class="form-group">
+                            <label for="">Old Password:</label>
+                            <div class="input-group">
+                                <input id="old-password" type="password" name="old_password" class="password form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" data-toggle="password">
+                                <div class="input-group-append">
+                                    <span class="password input-group-text">
+                                        <i class="fa fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">New Password:</label>
+                            <div class="input-group">
+                                <input type="password" id="password" name="password" class="password form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" data-toggle="password">
+                                <div class="input-group-append">
+                                    <span class="password input-group-text">
+                                        <i class="fa fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Retype Password:</label>
+                            <div class="input-group">
+                                <input type="password" id="r-password" name="r_password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" data-toggle="password">
+                                <div class="input-group-append">
+                                    <span class="password input-group-text">
+                                        <i class="fa fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password Strength</label>
+                            <div class="" id="progress-bar-container">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="save-password-btn" type="button" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<%- include('../footer') %>
+<script src="/js/user-dashboard.js"></script>
+<script src="/js/password-score.js"></script>
+<script src="/js/password-score-options.js"></script>
+<script src="/js/bootstrap-strength-meter.js"></script>
+<script type="text/javascript">
+$('.password').click(function() {
+    var passwordInput = $(this).parent().prev();
+    $(this).find('i').toggleClass('fa-eye-slash');
+    if (passwordInput.attr('type') == 'text') {
+        passwordInput.attr('type', 'password');
+    } else {
+        passwordInput.attr('type', 'text');
+    }
+});
+
+// $('#password').strengthMeter('tooltip', {
+//     hierarchy: {
+//         '0': 'Very weak',
+//         '10': 'Very weak',
+//         '20': 'Weak',
+//         '30': 'Good',
+//         '40': 'Strong',
+//         '50': 'Very strong'
+//     }
+// });
+
+$('#password').strengthMeter('progressBar', {
+    container: $('#progress-bar-container'),
+    hierarchy: {
+        '0': 'bg-danger',
+        '25': 'bg-warning',
+        '50': 'bg-success'
+    }
+});
+</script>

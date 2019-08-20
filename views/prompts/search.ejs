@@ -1,0 +1,176 @@
+<%- include('../header') %>
+<style type="text/css">
+header.masthead {
+    color: black;
+}
+
+@media (min-width: 992px) {
+    header.masthead {
+        height: auto;
+        min-height: 775px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+@media (min-width: 992px){
+    #mainNav .navbar-nav > li > a, #mainNav .navbar-nav > li > a:focus {
+        color: white;
+    }
+}
+
+@media (min-width: 992px){
+#mainNav .navbar-nav > li > a:hover, #mainNav .navbar-nav > li > a:focus:hover {
+    color: #FFC107;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #673AB7;
+    border-color: #673AB7;
+}
+
+.btn-success:hover {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+
+.page-item {
+    cursor: pointer;
+}
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="">
+            <a class="navbar-brand js-scroll-trigger lmn" href="/"> <img src="/img/writing.png" style="height:4%; width: 4%;" />&nbsp;Writer's Block</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <% if (user) { %>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle cg" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Welcome
+                        <%= user.username %> <span class="fa fa-user-tie"></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/user/dashboard">My Dashboard</a>
+                        <a id="logout-btn" class="dropdown-item" href="/user/logout">Logout</a>
+                    </div>
+                </li>
+                <% } else { %>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#login-modal">Login</a>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </nav>
+    <header class="masthead">
+        <div class="container h-100">
+            <div class="row h-75">
+                <div class="col-md-12 mb-5" style="margin-top: 5rem!important;">
+                    <div class="card text-black bg-white shadow-sm">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-9">
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <span class="fa fa-search"></span>
+                                            </span>
+                                        </div>
+                                        <input id="search-text" type="text" class="form-control" name='q' value="<%= query.q %>">
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <select id="sort-by" class="custom-select">
+                                        <option value="1" <%= query.sort == 1 ? 'selected' : false %>>Most Recent</option>
+                                        <option value="2" <%= query.sort == 2 ? 'selected' : false %>>Most Viewed</option>
+                                        <option value="3" <%= query.sort == 3 ? 'selected' : false %>>Most Followed</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <% if(query.q == '') { %>
+                            <h3>Search for prompts</h3>
+                            <% }else{ %>
+                            <h3>You searched for
+                                <%= query.q %>...</h3>
+                            <% } %>
+                            <small>
+                                <%= total %> result(s) found</small>
+                            <div class="mt-4">
+                                <% if(prompts.length){ %>
+                                <% for(var i = 0; i < prompts.length; i++){ %>
+                                <% var thePrompt = prompts[i] %>
+                                <div class="card mb-2">
+                                    <div class="card-header" id="headingOne">
+                                        <h6 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#post-<%= thePrompt._id %>" aria-expanded="false" aria-controls="collapseOne">
+                                                <%= thePrompt.title %></button>
+                                            <a class="btn btn-success float-right mt-1" style="font-size: .600rem;" href="/prompts/view/<%= thePrompt._id %>">VIEW MORE</a>
+                                            <div class="mt-2 ml-2" style="float: right;">
+                                                <span class="mr-3">
+                                                    <span class="fa fa-eye"></span>
+                                                    <%= thePrompt.stats.views %>
+                                                </span>
+                                                <span class="mr-3">
+                                                    <span class="fa fa-heart"></span>
+                                                    <%= thePrompt.stats.follows %>
+                                                </span>
+                                            </div>
+                                        </h6>
+                                    </div>
+                                    <div id="post-<%= thePrompt._id %>" class="collapse" aria-labelledby="headingOne" style="">
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <i style="color: gray;">
+                                                    <b><%= thePrompt.username %></b> posted at <%= moment(thePrompt.date_created).startOf('minute').fromNow() %>
+                                                </i>
+                                            </div>
+                                            <%- thePrompt.content %>
+                                            <div class="mt-3">
+                                                <span class="fa fa-tags mr-1 mt-4"></span>
+                                                <% var tags = thePrompt.tags.split(',') %>
+                                                <% for(var j = 0; j < tags.length; j++) { %>
+                                                    <span class="badge badge-primary mr-1"><%= tags[j] %></span>
+                                                <% } %>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                                <% } %>
+                                <div class="row">
+                                    <div class="mx-auto mt-4">
+                                        <nav aria-label="Page navigation example">
+                                            <ul id="user-prompt-pagination" class="pagination">
+                                                <% for(var i = 1; i <= total_pages; i++){ %>
+                                                <li data-page="<%= i %>" class="search-prompt-page-item page-item <%= i == query.page ? 'active' : '' %>"><a class="page-link">
+                                                        <%= i %></a></li>
+                                                <% } %>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                                <% }else{ %>
+                                <h1 class="mx-auto">No results found...</h1>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+<%- include('../partials/login-modal'); %>
+<%- include('../footer') %>
+<script type="text/javascript">
+var query = JSON.parse('<%- JSON.stringify(query) %>');
+</script>
+<script src="/js/prompts-search.js"></script>
+<script src="/js/login.js"></script>

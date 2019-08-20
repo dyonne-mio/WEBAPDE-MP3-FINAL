@@ -1,0 +1,153 @@
+<%- include('header') %>
+<style type="text/css">
+header.masthead {
+    color: black;
+}
+
+@media (min-width: 992px) {
+    header.masthead {
+        height: auto;
+        min-height: 775px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #673AB7;
+    border-color: #673AB7;
+}
+
+.btn-success:hover {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger lmn" href="/"> <img src="../img/writing.png" style="height:4%; width: 4%;" />&nbsp;Writer's Block</a>
+        </div>
+    </nav>
+    <header class="masthead">
+        <div class="container h-100">
+            <div class="row h-75">
+                <div class="col-md-12" style="margin-top: 5rem!important;">
+                    <div class="card mb-5 mx-auto col-7 p-0 m-0" style="color: black;">
+                        <div class="card-header bg-white">
+                            <h2 class="lmn">Sign Up</h2>
+                            <span class="icon-pencil"></span> &nbsp;Please fill in this form to create an account.
+                        </div>
+                        <div class="card-body">
+                            <form id="sign-up-form">
+                                <div class="form-row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">First Name:</label>
+                                            <input type="text" class="form-control" name="first_name" placeholder="Enter First Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Middle Name:</label>
+                                            <input type="text" class="form-control" name="middle_name" placeholder="Enter Middle Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Last Name:</label>
+                                            <input type="text" class="form-control" name="last_name" placeholder="Enter Last Name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Email:</label>
+                                    <input type="text" class="form-control" name="email" placeholder="Enter Email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Username:</label>
+                                    <input type="text" class="form-control" name="username" placeholder="Enter Username">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Password:</label>
+                                    <div class="input-group">
+                                        <input type="password" id="password" name="password" class="password form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" data-toggle="password">
+                                        <div class="input-group-append">
+                                            <span class="password input-group-text">
+                                                <i class="fa fa-eye"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Retype Password:</label>
+                                    <div class="input-group">
+                                        <input type="password" name="r_password" class="form-control" placeholder="Retype Password" aria-label="Username" aria-describedby="basic-addon1" data-toggle="password">
+                                        <div class="input-group-append">
+                                            <span class="password input-group-text">
+                                                <i class="fa fa-eye"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Password Strength</label>
+                                    <div class="" id="progress-bar-container">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Date of birth:</label>
+                                    <input type="date" class="form-control" name="birth_date" placeholder="Select date of birth">
+                                </div>
+                            </form>
+                            <div class="row">
+                                <button id="sign-up-btn" type="button" class="btn btn-success mx-auto">Sign Up!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+<%- include('footer') %>
+<script src="/js/password-score.js"></script>
+<script src="/js/password-score-options.js"></script>
+<script src="/js/bootstrap-strength-meter.js"></script>
+<script src="/js/home.js"></script>
+<script type="text/javascript">
+
+$('.password').click(function(){
+    var passwordInput = $(this).parent().prev();
+    $(this).find('i').toggleClass('fa-eye-slash');
+    if(passwordInput.attr('type') == 'text'){
+        passwordInput.attr('type', 'password');
+    }else{
+        passwordInput.attr('type', 'text');
+    }
+});
+
+$('#password').strengthMeter('tooltip', {
+    hierarchy: {
+        '0': 'Very weak',
+        '10': 'Very weak',
+        '20': 'Weak',
+        '30': 'Good',
+        '40': 'Strong',
+        '50': 'Very strong'
+    }
+});
+
+$('#password').strengthMeter('progressBar', {
+    container: $('#progress-bar-container'),
+    hierarchy: {
+        '0': 'bg-danger',
+        '25': 'bg-warning',
+        '50': 'bg-success'
+    }
+});
+</script>

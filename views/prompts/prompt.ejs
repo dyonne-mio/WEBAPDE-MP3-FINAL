@@ -1,0 +1,220 @@
+<%- include('../header') %>
+<style type="text/css">
+header.masthead {
+    color: black;
+}
+
+@media (min-width: 992px) {
+    header.masthead {
+        height: auto;
+        min-height: 775px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+#branches-div .card {
+    border: 1px solid black;
+}
+
+#branches-div .card-body {
+    padding: .65rem;
+}
+
+.blockquote-custom {
+    position: relative;
+    font-size: 1.1rem;
+}
+
+.blockquote-custom-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -25px;
+    left: 50px;
+}
+
+.branch-content * {
+    font-size: 1rem !important;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #673AB7;
+    border-color: #673AB7;
+}
+
+.btn-success:hover {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+
+@media (min-width: 992px){
+    #mainNav .navbar-nav > li > a, #mainNav .navbar-nav > li > a:focus {
+        color: white;
+    }
+}
+
+@media (min-width: 992px){
+#mainNav .navbar-nav > li > a:hover, #mainNav .navbar-nav > li > a:focus:hover {
+    color: #FFC107;
+}
+}
+
+</style>
+<body>
+<script type="text/javascript">
+var prompt_id = "<%= prompt._id %>";
+</script>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="">
+        <a class="navbar-brand js-scroll-trigger lmn" href="/"> <img src="/img/writing.png" style="height:4%; width: 4%;" />&nbsp;Writer's Block</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item co">
+                <a class="nav-link" href='/prompts/search'> <span class="fa fa-search"></span> Search Prompts</a>
+            </li>
+            <% if (user) { %>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle cg" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Welcome
+                    <%= user.username %> <span class="fa fa-user-tie"></span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/user/dashboard">My Dashboard</a>
+                    <a id="logout-btn" class="dropdown-item" href="/user/logout">Logout</a>
+                </div>
+            </li>
+            <% } else { %>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#login-modal">Login</a>
+            </li>
+            <% } %>
+        </ul>
+    </div>
+</nav>
+<header class="masthead">
+    <div class="container h-100">
+        <div class="row h-75">
+            <div class="col-md-7" style="margin-top: 5rem!important;">
+                <div class="card text-black bg-white mb-5 shadow-lg">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <div>
+                                <h1 style="font-weight: bold;">
+                                    <b>
+                                        <%= prompt.title %>
+                                    </b>
+                                </h1>
+                                <i style="color: gray;">
+                                    <b><%= prompt.username %></b> posted at
+                                    <%= moment(prompt.date_created).startOf('minute').fromNow() %>
+                                </i>
+                            </div>
+                            <div>
+                                <p>
+                                    <%- prompt.content %>
+                                </p>
+                            </div>
+                            <div>
+                                <span class="fa fa-tags mr-1 mt-4"></span>
+                                <% var tags = prompt.tags.split(',') %>
+                                <% for(var i = 0; i < tags.length; i++){ %>
+                                <%- '<span class="badge badge-primary mr-1">'+tags[i]+'</span>' %>
+                                <% }; %>
+                            </div>
+                            <div style="text-align: right;">
+                                <span class="mr-3">
+                                    <span class="fa fa-eye"></span> <span id='total-views-text'>...</span>
+                                </span>
+                                <span class="mr-3">
+                                    <span id="follow-prompt-btn" class="fa fa-heart cp"></span> <span id="total-followed-text">...</span>
+                                </span>
+                            </div>
+                        </div>
+                        <% if(mine) { %>
+                            <h6 class="mb-4">Add branches by dragging them here <i class="fa fa-level-down-alt"></i></h6>
+                        <% } %>
+                        <% if(user) { %>
+                            <ul id="added-branches-list" style="list-style-type: none;" class="p-0 m-0">
+                                <% for(var i = 0; i < prompt.added_branches.length; i++){ %>
+                                    <!-- prompt.added_branches.length -->
+                                    <% var branch = prompt.added_branches[i].branch %>
+                                    <li data-id="<%= branch._id %>" draggable="false" class="disabled" style="">
+                                        <div class="branch-item">
+                                            <blockquote class="blockquote blockquote-custom bg-white p-3 shadow rounded">
+                                                <div class="mb-3"><a href="#" class="text-info mr-2" draggable="false"><%= branch.username %></a><i class="branch-user-info" style="color: gray; font-size: .9rem;">posted at <%= moment(branch.date_created).startOf('minute').fromNow() %></i>
+                                                    <div class="remove-branch-btn" style="float: right;"><span style="color: gray; font-size: .9rem;" class="cp fa fa-window-close"></span></div>                                                    
+                                                </div>
+                                                <div class="branch-content">
+                                                    <%- branch.content %>
+                                                </div>
+                                            </blockquote>
+                                        </div>
+                                    </li>
+                                <% }; %>
+                            </ul>
+                        <% }else{ %>
+                            <div style="text-align: center;">
+                                <a href="javascript;" data-toggle="modal" data-target="#login-modal"><h3>Please login to add your own branches.</h3></a>
+                            </div>
+                       <% } %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5" style="margin-top: 5rem!important;">
+                <div class="card text-black bg-white shadow-lg">
+                    <div class="card-body">
+                        <button id="add-branch-btn" class="mb-4 btn text-black btn-success mt-3 mx-auto">
+                            <i class="fa fa-plus-circle"></i> Add Branch
+                        </button>
+                        <div>
+                            <ul id="branches-list" style="list-style-type: none;" class="p-0 m-0">
+                                <li style="text-align: center;">Retrieving...</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="reply-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="">Write a branch reply</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea id="reply-branch-ta"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="reply-branch-btn" type="button" class="btn btn-success"><i class="fa fa-reply"></i>Add</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+    var mine = '<%= mine %>';
+    var currentUser = "<%- user.username %>";
+</script>
+<%- include('../partials/login-modal') %>
+</body>
+<%- include('../footer') %>
+<script src="/js/prompt.js"></script>
+<script src="/js/login.js"></script>
+
+<script type="text/javascript">
+    setFollowStatus('<%= following %>');
+</script>

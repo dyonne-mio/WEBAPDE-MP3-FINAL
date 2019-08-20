@@ -1,0 +1,123 @@
+/*body{
+  background-color: #fbedb6;
+  -webkit-font-smoothing: antialiased;
+    text-rendering: optimizelegibility;
+    background-image: url('/images/crissxcross.png');
+}*/
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff!important;
+    background-color: #673AB7;
+    border-color: #673AB7;
+}
+
+.page-item.active .page-link >  a:focus:hover{
+    z-index: 1;
+    color: #fff!important;
+    background-color: #673AB7;
+    border-color: #673AB7;
+}
+
+.bootstrap-tagsinput .badge-info{
+  margin-right: .5rem!important;
+}
+
+#overview{
+  background-color: #CBE4F9;
+}
+
+.feature-item > .text-primary{
+  -webkit-text-fill-color: #563d7c!important;
+}
+
+@media (min-width: 768px) {
+  section.cta .cta-content h2 {
+    font-size: 60px;
+  }
+}
+
+.bg-dark-purple{
+  background-color: #6134fb;
+}
+
+.bg-dark-blue{
+  background-color: #002949;
+}
+
+.bg-light-purple{
+  background-color: #C39ED2;
+}
+
+.wb{
+  background-image: src("../img/icon-wb.png");
+}
+
+.rockwell {
+    font-family: "Rockwell"!important;
+}
+
+
+.cg {
+    font-family: "Century Gothic"!important;
+}
+
+.lmn{
+  font-family: "LemonMilkbold"!important;
+}
+
+.shink{
+  font-family: "Shink"!important;
+}
+
+.antipastoR{
+  font-family: "Antipasto-Pro-Regular-trial"!important;
+}
+
+.antipastoB{
+  font-family: "Antipasto-Pro-ExtraBold-trial"!important;
+}
+@font-face {
+    font-family: "Century Gothic";
+    src: url("../vendor/fontawesome-free/webfonts/CenturyGothic.woff");
+}
+
+@font-face {
+    font-family: "LemonMilkbold";
+    src: url("../vendor/fontawesome-free/webfonts/LemonMilkbold.otf");
+}
+
+@font-face {
+    font-family: "Shink";
+    src: url("../vendor/fontawesome-free/webfonts/Shink Font by Rifki (7NTypes).otf");
+}
+
+@font-face {
+    font-family: "Antipasto-Pro-Regular-trial";
+    src: url("../vendor/fontawesome-free/webfonts/Antipasto-Pro-Regular-trial.ttf");
+}
+
+@font-face {
+    font-family: "Antipasto-Pro-ExtraBold-trial";
+    src: url("../vendor/fontawesome-free/webfonts/Antipasto-Pro-ExtraBold-trial.ttf");
+}
+
+.text-black{
+  color: black;
+}
+
+#prompt-tags{
+  margin-top: 10px;
+}
+
+.hide{
+  display: none;
+}
+
+#branches-div .card{
+  border: 1px solid black;
+}
+
+.cp{
+  cursor: pointer;
+}

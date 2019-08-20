@@ -1,0 +1,212 @@
+<%- include('header') %>
+
+<body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger lmn" href="#page-top"> <img src="../img/writing.png" style="height:4%; width: 4%;" />&nbsp;Writer's Block</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" style="display: none;">
+                        <a class="nav-link js-scroll-trigger" href="#download">Download</a>
+                    </li>
+                    <li class="nav-item" style="display: none;">
+                        <a class="nav-link js-scroll-trigger" href="#overview">Overview</a>
+                    </li>
+                    <li class="nav-item" style="display: none;">
+                        <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                    </li>
+                    <% if (user) { %>
+                    <li class="nav-item dropdown cg">
+                        <a class="nav-link dropdown-toggle cg" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Welcome
+                            <%= user.username %> <span class="fa fa-user-tie"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/user/dashboard">My Dashboard</a>
+                            <a id="logout-btn" class="dropdown-item" href="/user/logout">Logout</a>
+                        </div>
+                    </li>
+                    <% } else { %>
+                    <li class="nav-item">
+                        <a class="nav-link cg" data-toggle="modal" data-target="#login-modal">Login</a>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--<header class="masthead">
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col-lg-7 my-auto">
+                    <div class="header-content mx-auto">
+                        <h1 class="mb-5">Writer's Block is a web application that helps inspire creativity by giving you writing prompts to help you come up with fresh ideas.</h1>
+                        <a href="#download" class="btn btn-outline btn-xl js-scroll-trigger">Start Now for Free!</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 my-auto">
+                    <div class="device-container">
+                        <div class="device-mockup iphone6_plus portrait white">
+                            <div class="device">
+                                <div class="screen">
+                                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+    <!--<img src="img/demo-screen-1.jpg" class="img-fluid" alt="">
+                                </div>
+                                <div class="button">
+                                    <!-- You can hook the "home button" to some JavaScript events or just remove it -->
+    <!-- </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>    -->
+    <!-- <section class="download bg-primary text-center" id="download" style="display: none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <h2 class="section-heading">Discover what all the buzz is about!</h2>
+                    <p>Our app is available on any mobile device! Download now to get started!</p>
+                    <div class="badges">
+                        <a class="badge-link" href="#"><img src="img/google-play-badge.svg" alt=""></a>
+                        <a class="badge-link" href="#"><img src="img/app-store-badge.svg" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="features" id="overview">
+        <div class="container">
+            <div class="section-heading text-center">
+                <h2>Unleash your Imagination with Writer's Block</h2>
+                <p class="text-muted">Meet fellow writers, collaborate, and come up with great stories!</p>
+                <hr>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 my-auto">
+                    <div class="device-container">
+                        <div class="device-mockup iphone6_plus portrait white">
+                            <div class="device">
+                                <div class="screen">
+                                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+    <!--<img src="img/demo-screen-1.jpg" class="img-fluid" alt="">
+                                </div>
+                                <div class="button">
+                                    <!-- You can hook the "home button" to some JavaScript events or just remove it -->
+    <!-- </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 my-auto">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="feature-item">
+                                    <i class="icon-pencil text-primary"></i>
+                                    <h3>Prompts</h3>
+                                    <p class="text-muted">View writing prompts or create your own</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="feature-item">
+                                    <i class="icon-people text-primary"></i>
+                                    <h3>Collaborate</h3>
+                                    <p class="text-muted">Inspire fellow writers and create beautiful stories together</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="feature-item">
+                                    <i class="icon-link text-primary"></i>
+                                    <h3>Connect</h3>
+                                    <p class="text-muted">Create story branches and connections</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="feature-item">
+                                    <i class="icon-notebook text-primary"></i>
+                                    <h3>Free to Use</h3>
+                                    <p class="text-muted">Writer's Block will always be free to use for all</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>-->
+    <section class="cta">
+        <div class="cta-content antipastoR">
+            <div class="container">
+                <h2 class="antipastoR" style="font-size: 50px;">Stop overthinking.<br>Start <span class="antipastoR" style="font-size: 50px; color: #51008c; font-weight: bold;">writing today!</span></h2>
+                <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger lmn" style="font-size: 12px;">See featured prompts!</a>
+            </div>
+        </div>
+        <div class="overlay"></div>
+    </section>
+    <section id="contact" class="bg-primary">
+        <div class="container">
+            <div style="text-align: center;" class="mb-4">
+                <h2 class="lmn">Featured Prompts</h2>
+            </div>
+            <div id="prompts-div" class="row">
+                <% for(var i = 0; i < prompts.length; i++){ %>
+                <% var prompt = prompts[i] %>
+                    <div class="col-12">
+                        <div class="card col-6 p-0 mx-auto mb-2">
+                            <div class="card-header" id="">
+                                <h6 class="mb-0">
+                                    <a href="/prompts/view/<%= prompt._id %>" class="btn btn-link" aria-expanded="true" aria-controls="">
+                                        <%= prompt.title %>
+                                    </a>
+                                    <a class="btn btn-success float-right mt-1" style="font-size: .600rem;" href="/prompts/view/<%= prompt._id %>">VIEW MORE</a>
+                                    <div class="mt-2 ml-2" style="float: right;">
+                                        <span class="mr-3">
+                                            <span class="fa fa-eye"></span> <%= prompt.view_count %>
+                                        </span>
+                                        <span class="mr-3">
+                                            <span class="fa fa-heart"></span> <%= prompt.follow_count %> 
+                                        </span>
+                                    </div>
+                                </h6>
+                            </div>
+                            <div id="post-<%= prompt._id %>" aria-labelledby="" style="">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <i style="color: gray;">
+                                            <b>
+                                                <%= prompt.username %></b> posted at
+                                            <%= moment(prompt.date_created).startOf('minute').fromNow() %>
+                                        </i>
+                                    </div>
+                                    <%- prompt.content %>
+                                    <div class="mt-3">
+                                        <span class="fa fa-tags mr-1 mt-4"></span>
+                                        <% var tags = prompt.tags.split(',') %>
+                                        <% for(var j = 0; j < tags.length; j++) { %>
+                                        <span class="badge badge-primary mr-1">
+                                            <%= tags[j] %></span>
+                                        <% } %>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+            <div class="row"><a id='show-more-prompts-btn' href="javascript:;" class="btn btn-outline btn-xl js-scroll-trigger lmn mx-auto mt-2" style="font-size: 12px;">Show more prompts</a></div>
+        </div>
+    </section>
+    <%- include('partials/login-modal'); %>
+    <%- include('footer') %>
+    <script src="/js/login.js"></script>
+    <script src="/js/home.js"></script>

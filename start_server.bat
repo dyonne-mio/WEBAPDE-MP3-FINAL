@@ -1,0 +1,1 @@
+nodemon --config nodemon.json app.js

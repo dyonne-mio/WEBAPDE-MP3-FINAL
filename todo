@@ -1,0 +1,19 @@
+user
+	search for prompts by title, author, tags
+	add story to prompts
+	create/edit/delete prompts
+	upvote/downvote prompt
+	follow story
+
+home
+	search
+	view my prompts
+	create prompts
+
+
+prompts
+	title
+	content
+	tags
+	author
+	views

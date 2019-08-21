@@ -442,7 +442,7 @@ router.post('/delete-prompt\/?', async function(req, res, next) {
             if(err){
                 response.status = 1;
             }else{
-                await addActivity('Delete prompt '+prompt.title+'.', username);
+                await addActivity('Deleted prompt '+prompt.title+'.', username);
             }
             res.send(response);
         });

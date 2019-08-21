@@ -342,7 +342,7 @@ searchUserFollowedPromptText.on('keyup', function() {
                                     '<div class="card-body">',
                                         '<div class="mb-3">',
                                             '<i style="color: gray;">',
-                                                '<b>' + prompt.username + '</b> posted at ',
+                                                '<b>' + prompt.username + '</b> posted ',
                                                 moment(prompt.date_created).startOf('minute').fromNow(),
                                             '</i>',
                                         '</div>',

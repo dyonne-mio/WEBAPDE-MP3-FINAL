@@ -309,7 +309,7 @@ function loadBranches(){
                                 '<div class="mb-3">',
                                     '<a href="#" class="text-info mr-2">'+branch.username+'</a>',
                                     '<i class="branch-user-info" style="color: gray; font-size: .9rem;">',
-                                        'posted at ',
+                                        'posted ',
                                         moment(branch.date_created).startOf('minute').fromNow(),
                                     '</i>',
 					              	delButton,

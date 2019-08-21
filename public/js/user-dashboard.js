@@ -219,7 +219,7 @@ searchUserPromptText.on('keyup', function() {
                                     '<div class="card-body">',
                                         '<div class="mb-3">',
                                             '<i style="color: gray;">',
-                                                'posted at ',
+                                                'posted ',
                                                 moment(prompt.date_created).startOf('minute').fromNow(),
                                                 '<span data-id="' + prompt._id + '"" class="del-prompt-btn fa fa-trash ml-2 cp"></span>',
                                             '</i>',

@@ -88,7 +88,7 @@ $('#show-more-prompts-btn').click(function(){
 	                                        '<i style="color: gray;">',
 	                                            '<b>',
 	                                            prompt.username,
-	                                            '</b> posted at',
+	                                            '</b> posted ',
 	                                            moment(prompt.date_created).startOf('minute').fromNow(),
 	                                        '</i>',
 	                                    '</div>',
